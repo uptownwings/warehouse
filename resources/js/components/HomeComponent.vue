@@ -12,7 +12,7 @@
                             <thead>
                             <tr>
                                 <th v-for="col in columns" v-on:click="sortTable(col)">{{col}}
-                                    <div class="arrow" v-if="col == sortColumn" v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"></div>
+                                    <div class="arrow" v-if="col === sortColumn" v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"></div>
                                 </th>
                             </tr>
                             </thead>
@@ -25,7 +25,7 @@
                         <div class="pagination">
                             <div class="number"
                                  v-for="i in num_pages()"
-                                 v-bind:class="[i == currentPage ? 'active' : '']"
+                                 v-bind:class="[i === currentPage ? 'active' : '']"
                                  v-on:click="change_page(i)">{{i}}</div>
                         </div>
                     </div>
@@ -195,7 +195,7 @@
         color: #FFF;
         border-radius: 4px;
         background: #44475C;
-        margin: 0px 5px;
+        margin: 5px;
         cursor: pointer;
     }
     .number:hover, .number.active {
