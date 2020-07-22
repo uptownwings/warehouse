@@ -3,33 +3,22 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    protected function redirectTo($request): string
-    {
-        if (! $request->expectsJson()) {
-            return route('login');
-        }
-    }
-
     public function handle($request, Closure $next, ...$guards)
     {
-        if ($this->authenticate($request, $guards) === 'authentication_failed') {
-            return response()->json(['error'=>'Unauthorized'], 400);
+        if ($this->authenticate($guards) === 'authentication_failed') {
+            return new JsonResponse(['error' => 'Unauthorized'], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next;
     }
 
-    protected function authenticate($request, array $guards)
+    protected function authenticate(array $guards)
     {
         if (empty($guards)) {
             $guards = [null];
@@ -41,5 +30,21 @@ class Authenticate extends Middleware
         }
 
         return 'authentication_failed';
+    }
+
+    /**
+     * Get the path the user should be redirected to when they are not authenticated.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return string|null
+     */
+    protected function redirectTo($request): string
+    {
+        $redirect = '';
+        if (!$request->expectsJson()) {
+            $redirect = 'login';
+        }
+
+        return $redirect;
     }
 }

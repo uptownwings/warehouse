@@ -3,8 +3,8 @@
 namespace App\Repositories;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 interface BaseRepositoryInterface
 {
@@ -14,7 +14,7 @@ interface BaseRepositoryInterface
 
     public function store(Request $request): bool;
 
-    public function show(Request $request):JsonResponse;
+    public function show(int $modelId): Model;
 
     public function edit(Request $request): bool;
 

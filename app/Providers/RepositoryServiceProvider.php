@@ -12,5 +12,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\WarehouseItems\WarehouseItemRepositoryInterface',
             'App\Repositories\WarehouseItems\WarehouseItemRepository'
         );
+        $this->app->bind(
+            'App\Repositories\Users\UserRepositoryInterface',
+            'App\Repositories\Users\UserRepository'
+        );
     }
 }

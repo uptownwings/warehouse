@@ -14,4 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::apiResource('warehouse', 'WarehouseItemController');
+Route::prefix('v1')->group(function () {
+    Route::prefix('auth')->group(function () {
+        Route::apiResource('login', 'LoginController');
+    });
+
+    Route::middleware('auth')->group(function () {
+        Route::apiResource('warehouse', 'WarehouseItemController');
+    });
+});

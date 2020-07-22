@@ -31,9 +31,9 @@ class BaseRepository implements BaseRepositoryInterface
         // TODO: Implement store() method.
     }
 
-    public function show(Request $request): JsonResponse
+    public function show(int $modelId): Model
     {
-        // TODO: Implement show() method.
+        return $this->model::query()->find($modelId)->first();
     }
 
     public function edit(Request $request): bool

@@ -11,14 +11,14 @@
                         <table>
                             <thead>
                             <tr>
-                                <th v-for="col in columns" v-on:click="sortTable(col)">{{col}}
+                                <th v-for="col in columns" v-on:click="sortTable(col)">{{ col }}
                                     <div class="arrow" v-if="col === sortColumn" v-bind:class="[ascending ? 'arrow_up' : 'arrow_down']"></div>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="row in get_rows()">
-                                <td v-for="col in columns">{{row[col]}}</td>
+                                <td v-for="col in columns">{{ row[col] }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -26,7 +26,7 @@
                             <div class="number"
                                  v-for="i in num_pages()"
                                  v-bind:class="[i === currentPage ? 'active' : '']"
-                                 v-on:click="change_page(i)">{{i}}</div>
+                                 v-on:click="change_page(i)">{{ i }}</div>
                         </div>
                     </div>
                 </div>
@@ -62,11 +62,15 @@
         },
         methods: {
             fetchData () {
-                axios.get('/api/warehouse').then(
+                axios.get('/api/v1/warehouse').then(
                     (response) => {
                         this.info = response.data;
                         console.log(this.info);
                     }
+                ).catch(
+                    (reason => {
+                        alert(reason);
+                    })
                 )
             },
             sortTable(col) {
@@ -92,9 +96,9 @@
                 return Math.ceil(this.info.length / this.elementsPerPage);
             },
             get_rows() {
-                let start = (this.currentPage-1) * this.elementsPerPage;
-                let end = start + this.elementsPerPage;
-                return this.info.slice(start, end);
+                let begin = (this.currentPage-1) * this.elementsPerPage;
+                let end = begin + this.elementsPerPage;
+                return this.info.slice(begin, end);
             },
             change_page(page) {
                 this.currentPage = page;
