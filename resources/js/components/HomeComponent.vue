@@ -62,7 +62,7 @@
         },
         methods: {
             fetchData () {
-                axios.get('/api/v1/warehouse').then(
+                axios.get('/warehouse').then(
                     (response) => {
                         this.info = response.data;
                         console.log(this.info);

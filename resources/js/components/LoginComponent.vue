@@ -12,19 +12,12 @@
                         <p class="h4 mb-4">Sign in</p>
 
                         <!-- Email -->
-                        <input type="email" id="defaultLoginFormEmail" class="form-control mb-4" placeholder="E-mail">
+                        <input type="email" id="email" class="form-control mb-4" placeholder="E-mail" v-model="email">
 
                         <!-- Password -->
-                        <input type="password" id="defaultLoginFormPassword" class="form-control mb-4" placeholder="Password">
+                        <input type="password" id="password" class="form-control mb-4" placeholder="Password" v-model="password">
 
                         <div class="d-flex justify-content-around">
-                            <div>
-                                <!-- Remember me -->
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
-                                    <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
-                                </div>
-                            </div>
                             <div>
                                 <!-- Forgot password -->
                                 <a href="">Forgot password?</a>
@@ -32,7 +25,7 @@
                         </div>
 
                         <!-- Sign in button -->
-                        <button class="btn btn-info btn-block my-4" type="submit">Sign in</button>
+                        <button class="btn btn-info btn-block my-4" v-on:click="login">Sign in</button>
 
                         <!-- Register -->
                         <p>Not a member?
@@ -49,6 +42,23 @@
 
 <script>
     export default {
-        name: 'LoginComponent'
+        name: 'LoginComponent',
+        data () {
+            return {
+                email: '',
+                password: ''
+            }
+        },
+        methods: {
+            login () {
+                let loginMessage = {'email' : this.email, 'password': this.password};
+                axios.post('/auth/login', loginMessage).then(
+                    window.location('/')
+                ).catch(
+                    alert('Wrong username or password')
+                );
+            }
+        }
+
     }
 </script>

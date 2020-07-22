@@ -14,7 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             WarehouseItemSeeder::class,
             PriceHistorySeeder::class,
-            QuantityHistorySeeder::class
+            QuantityHistorySeeder::class,
+            UserSeeder::class
         ]);
     }
 }
