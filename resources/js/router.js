@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Dashboard from './pages/user/Dashboard'
+import ResetPassword from "./pages/ResetPassword";
 
 // Routes
 const routes = [
@@ -27,6 +28,14 @@ const routes = [
         path: '/login',
         name: 'login',
         component: Login,
+        meta: {
+            auth: false
+        }
+    },
+    {
+        path: '/reset',
+        name: 'reset',
+        component: ResetPassword,
         meta: {
             auth: false
         }

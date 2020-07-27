@@ -11,13 +11,17 @@ const config = {
     router: router,
     tokenDefaultName: 'laravel-jwt-auth',
     tokenStore: ['localStorage'],
-    rolesVar: 'role', //User model field which contains the user role details.
+    rolesVar: 'role',
 
-    // API endpoints used in Vue Auth.
     registerData: {
         url: 'auth/register',
         method: 'POST',
         redirect: '/login'
+    },
+    resetData: {
+        url: 'auth/reset',
+        method: 'POST',
+        redirect: '',
     },
     loginData: {
         url: 'auth/login',

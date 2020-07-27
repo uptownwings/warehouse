@@ -18,6 +18,7 @@ Route::prefix('v1')->group(function () {
         Route::post('register', 'AuthController@register');
         Route::post('login', 'AuthController@login');
         Route::get('refresh', 'AuthController@refresh');
+        Route::post('reset', 'AuthController@doReset')->name('password.reset');
         Route::middleware('auth:api')->group(function () {
             Route::get('user', 'AuthController@user');
             Route::post('logout', 'AuthController@logout');

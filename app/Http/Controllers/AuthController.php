@@ -2,38 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\ResetRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use App\Repositories\Users\UserRepositoryInterface;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class AuthController extends Controller
 {
-    use ResetsPasswords;
-
-    /**
-     * Register a new user
-     */
-    public function register(CreateUserRequest $request, UserRepositoryInterface $repository)
-    {
-        $user = $repository->createUser($request);
-        return response()->json(['status' => 'success', 'user' => $user], 200);
+    use SendsPasswordResetEmails, ResetsPasswords {
+        SendsPasswordResetEmails::broker insteadof ResetsPasswords;
+        ResetsPasswords::credentials insteadof SendsPasswordResetEmails;
     }
 
-    public function login(LoginRequest $request)
+    public function register(CreateUserRequest $request, UserRepositoryInterface $repository): JsonResponse
+    {
+        $user = $repository->createUser($request);
+        return response()->json(['status' => 'success', 'user' => $user], Response::HTTP_OK);
+    }
+
+    public function login(LoginRequest $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
-            return response()->json(['status' => 'success', 'token' => $token], 200)->header('Authorization', $token);
+            return response()->json(
+                ['status' => 'success', 'token' => $token],
+                Response::HTTP_OK
+            )->header('Authorization', $token);
         }
-        return response()->json(['error' => 'login_error'], 401);
+
+        return response()->json(['error' => 'login_error'], Response::HTTP_UNAUTHORIZED);
     }
 
     private function guard()
@@ -41,10 +46,7 @@ class AuthController extends Controller
         return Auth::guard();
     }
 
-    /**
-     * Logout User
-     */
-    public function logout()
+    public function logout(): JsonResponse
     {
         $this->guard()->logout();
         return response()->json([
@@ -63,10 +65,7 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Refresh JWT token
-     */
-    public function refresh()
+    public function refresh(): JsonResponse
     {
         if ($token = $this->guard()->refresh()) {
             return response()
@@ -76,30 +75,22 @@ class AuthController extends Controller
         return response()->json(['error' => 'refresh_token_error'], 401);
     }
 
-    /**
-     * Send password reset link.
-     */
+    public function doReset(ResetRequest $request)
+    {
+        return $this->sendPasswordResetLink($request);
+    }
+
     public function sendPasswordResetLink(Request $request)
     {
         return $this->sendResetLinkEmail($request);
     }
 
-    /**
-     * Handle reset password
-     */
-    public function callResetPassword(Request $request)
+    public function callResetPassword(Request $request): JsonResponse
     {
         return $this->reset($request);
     }
 
-    /**
-     * Get the response for a successful password reset link.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function sendResetLinkResponse(Request $request, $response)
+    protected function sendResetLinkResponse(Request $request, $response): JsonResponse
     {
         return response()->json([
             'message' => 'Password reset email sent.',
@@ -107,52 +98,24 @@ class AuthController extends Controller
         ]);
     }
 
-    /**
-     * Get the response for a failed password reset link.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function sendResetLinkFailedResponse(Request $request, $response)
+    protected function sendResetLinkFailedResponse(Request $request, $response): JsonResponse
     {
         return response()->json(['message' => 'Email could not be sent to this email address.']);
     }
 
-    /**
-     * Reset the given user's password.
-     *
-     * @param \Illuminate\Contracts\Auth\CanResetPassword $user
-     * @param string $password
-     * @return void
-     */
-    protected function resetPassword($user, $password)
+    protected function resetPassword($user, $password): void
     {
         $user->password = Hash::make($password);
         $user->save();
         event(new PasswordReset($user));
     }
 
-    /**
-     * Get the response for a successful password reset.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function sendResetResponse(Request $request, $response)
+    protected function sendResetResponse(Request $request, $response): JsonResponse
     {
         return response()->json(['message' => 'Password reset successfully.']);
     }
 
-    /**
-     * Get the response for a failed password reset.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param string $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
-    protected function sendResetFailedResponse(Request $request, $response)
+    protected function sendResetFailedResponse(Request $request, $response): JsonResponse
     {
         return response()->json(['message' => 'Failed, Invalid Token.']);
     }
