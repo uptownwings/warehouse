@@ -42,9 +42,8 @@
     },
     methods: {
       login() {
-        // get the redirect object
-        var redirect = this.$auth.redirect()
-        var app = this
+        let redirect = this.$auth.redirect()
+        let app = this
 
         this.$auth.login({
           data: {
@@ -55,7 +54,6 @@
             // handle redirection
             app.success = true
             const redirectTo = redirect ? redirect.from.name : this.$auth.user().role === -1 ? 'admin.dashboard' : 'dashboard'
-            // const redirectTo = 'dashboard'
             this.$router.push({name: redirectTo})
           },
           error: function() {
