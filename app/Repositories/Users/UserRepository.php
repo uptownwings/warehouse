@@ -2,14 +2,19 @@
 
 namespace App\Repositories\Users;
 
-use Illuminate\Http\Request;
+use App\User;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
-    public function create(Request $user): bool
+    public function __construct(User $model)
     {
-
+        parent::__construct($model);
     }
 
+    public function show(int $userId): User
+    {
+        return $this->showModel($userId);
+    }
 }

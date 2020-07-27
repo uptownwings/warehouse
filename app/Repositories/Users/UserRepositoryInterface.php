@@ -2,9 +2,9 @@
 
 namespace App\Repositories\Users;
 
-use Illuminate\Http\Request;
+use App\User;
 
 interface UserRepositoryInterface
 {
-    public function create(Request $user): bool;
+    public function show(int $userId): User;
 }

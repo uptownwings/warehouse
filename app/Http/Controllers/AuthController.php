@@ -1,14 +1,19 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\User;
+use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use App\Repositories\Users\UserRepositoryInterface;
 
 class AuthController extends Controller
 {
@@ -38,10 +43,7 @@ class AuthController extends Controller
         return response()->json(['status' => 'success'], 200);
     }
 
-    /**
-     * Login user and return a token
-     */
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $credentials = $request->only('email', 'password');
         if ($token = $this->guard()->attempt($credentials)) {
@@ -50,9 +52,6 @@ class AuthController extends Controller
         return response()->json(['error' => 'login_error'], 401);
     }
 
-    /**
-     * Return auth guard
-     */
     private function guard()
     {
         return Auth::guard();
@@ -70,12 +69,10 @@ class AuthController extends Controller
         ], 200);
     }
 
-    /**
-     * Get authenticated user
-     */
-    public function user(Request $request)
+    public function user(UserRepositoryInterface $repository): JsonResponse
     {
-        $user = User::query()->find(Auth::user()->id);
+        $user = $repository->show(Auth::user()->id);
+
         return response()->json([
             'status' => 'success',
             'data' => $user

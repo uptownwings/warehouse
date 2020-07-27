@@ -3135,20 +3135,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -40878,58 +40864,6 @@ var render = function() {
           attrs: { id: "navbarSupportedContent" }
         },
         [
-          _vm.$auth.check(1)
-            ? _c(
-                "ul",
-                { staticClass: "navbar-nav mr-auto" },
-                _vm._l(_vm.routes.user, function(route, key) {
-                  return _c(
-                    "li",
-                    { key: route.path, staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          key: key,
-                          staticClass: "nav-link",
-                          attrs: { to: { name: route.path } }
-                        },
-                        [_vm._v(_vm._s(route.name))]
-                      )
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.$auth.check(2)
-            ? _c(
-                "ul",
-                { staticClass: "navbar-nav mr-auto" },
-                _vm._l(_vm.routes.user, function(route, key) {
-                  return _c(
-                    "li",
-                    { key: route.path, staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          key: key,
-                          staticClass: "nav-link",
-                          attrs: { to: { name: route.path } }
-                        },
-                        [_vm._v(_vm._s(route.name))]
-                      )
-                    ],
-                    1
-                  )
-                }),
-                0
-              )
-            : _vm._e(),
-          _vm._v(" "),
           !_vm.$auth.check()
             ? _c(
                 "ul",
@@ -56813,7 +56747,7 @@ var config = {
   loginData: {
     url: 'auth/login',
     method: 'POST',
-    redirect: '/',
+    redirect: '/dashboard',
     fetchUser: true
   },
   logoutData: {
