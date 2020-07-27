@@ -1,57 +1,74 @@
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
+// Pages
+import Home from './pages/Home'
+import About from './pages/About'
+import Register from './pages/Register'
+import Login from './pages/Login'
+import Dashboard from './pages/user/Dashboard'
+import AdminDashboard from './pages/admin/Dashboard'
 
-import HomeComponent from './components/HomeComponent.vue';
-import CreateComponent from './components/CreateComponent.vue';
-import IndexComponent from './components/IndexComponent.vue';
-import EditComponent from './components/EditComponent.vue';
-import LoginComponent from "./components/LoginComponent";
-
+// Routes
 const routes = [
     {
-        name: 'home',
         path: '/',
-        component: HomeComponent,
+        name: 'home',
+        component: Home,
         meta: {
-            auth: true
+            auth: undefined
         }
     },
     {
-        name: 'create',
-        path: '/create',
-        component: CreateComponent,
+        path: '/about',
+        name: 'about',
+        component: About,
         meta: {
-            auth: true
+            auth: undefined
         }
     },
     {
-        name: 'posts',
-        path: '/posts',
-        component: IndexComponent,
-        meta: {
-            auth: true
-        }
-    },
-    {
-        name: 'edit',
-        path: '/edit/:id',
-        component: EditComponent,
-        meta: {
-            auth: true
-        }
-    },
-    {
-        name: 'login',
-        path: '/login',
-        component: LoginComponent,
+        path: '/register',
+        name: 'register',
+        component: Register,
         meta: {
             auth: false
         }
-    }
-    ];
-
-    const router = new VueRouter({
-        history: true,
-        mode: 'history',
-        routes,
-    })
-    export default router
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: Login,
+        meta: {
+            auth: false
+        }
+    },
+    // USER ROUTES
+    {
+        path: '/dashboard',
+        name: 'dashboard',
+        component: Dashboard,
+        meta: {
+            auth: true
+        }
+    },
+    // ADMIN ROUTES
+    {
+        path: '/admin',
+        name: 'admin.dashboard',
+        component: AdminDashboard,
+        meta: {
+            auth: {
+                roles: -1,
+                redirect: {
+                    name: 'login'
+                },
+                forbiddenRedirect: '/403'
+            }
+        }
+    },
+]
+const router = new VueRouter({
+    history: true,
+    mode: 'history',
+    routes,
+})
+export default router

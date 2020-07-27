@@ -16,7 +16,8 @@ class UserSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'email' => 'admin@admin.com',
-                'password' => bcrypt('secret123')
+                'password' => bcrypt('secret123'),
+                'role' => -1,
             ]
         )->save();
     }
