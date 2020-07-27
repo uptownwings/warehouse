@@ -5,6 +5,7 @@ namespace App\Repositories\WarehouseItems;
 use App\User;
 use App\WarehouseItem;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 
 class WarehouseItemRepository extends BaseRepository implements WarehouseItemRepositoryInterface
 {
@@ -13,4 +14,8 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
         parent::__construct($model);
     }
 
+    public function getWarehouseItems(): Collection
+    {
+        return $this->showAll();
+    }
 }

@@ -2,9 +2,9 @@
 
 namespace App\Repositories\WarehouseItems;
 
-use App\User;
+use Illuminate\Database\Eloquent\Collection;
 
 interface WarehouseItemRepositoryInterface
 {
-
+    public function getWarehouseItems(): Collection;
 }

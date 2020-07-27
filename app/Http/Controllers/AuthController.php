@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Tymon\JWTAuth\JWTGuard;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\CreateUserRequest;
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use App\Repositories\Users\UserRepositoryInterface;
@@ -22,25 +21,10 @@ class AuthController extends Controller
     /**
      * Register a new user
      */
-    public function register(Request $request)
+    public function register(CreateUserRequest $request, UserRepositoryInterface $repository)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|min:3',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:3|confirmed',
-        ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'status' => 'error',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-        return response()->json(['status' => 'success'], 200);
+        $user = $repository->createUser($request);
+        return response()->json(['status' => 'success', 'user' => $user], 200);
     }
 
     public function login(LoginRequest $request)
