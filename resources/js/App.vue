@@ -1,27 +1,13 @@
 <template>
-    <div class="container">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <router-link to="/" class="nav-link">Home</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link to="/create" class="nav-link">Store Item</router-link>
-                </li>
-                <li class="nav-item">
-                    <router-link to="/posts" class="nav-link">Posts</router-link>
-                </li>
-            </ul>
-            <ul class="ml-auto navbar-nav">
-                <router-link to="/login" class="nav-link">Login</router-link>
-            </ul>
-        </nav>
-        <transition name="fade" mode="out-in">
+    <div id="main">
+        <header id="header">
+            <MenuComponent></MenuComponent>
+        </header>
+        <div id="content">
             <router-view></router-view>
-        </transition>
+        </div>
     </div>
 </template>
-
 <style>
     .fade-enter-active, .fade-leave-active {
         transition: opacity .5s
@@ -30,10 +16,16 @@
         opacity: 0
     }
 </style>
-
 <script>
-
+    import MenuComponent from "./components/MenuComponent";
     export default {
-        'name' : 'AppComponent'
+        data() {
+            return {
+                //
+            }
+        },
+        components: {
+            MenuComponent
+        }
     }
 </script>

@@ -22,14 +22,13 @@ class AuthController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function login(LoginRequest $request): JsonResponse
+    public function login(Request $request): JsonResponse
     {
         $credentials = $request->only('email', 'password');
-
-        if ($token = $this->guard()->attempt($credentials, true)) {
-            return new JsonResponse(['status' => 'success'], Response::HTTP_OK, ['Authorization' => $token]);
+        if ($token = $this->guard()->attempt($credentials)) {
+            return response()->json(['status' => 'success'], 200)->header('Authorization', $token);
         }
-        return new JsonResponse(['status' => 'error'], Response::HTTP_UNAUTHORIZED);
+        return response()->json(['error' => 'login_error'], 401);
     }
 
     public function logout(): JsonResponse
@@ -53,6 +52,7 @@ class AuthController extends Controller
         if ($token = $this->guard()->refresh()) {
             return new JsonResponse(['status' => 'success'], Response::HTTP_OK, ['Authorization' => $token]);
         }
+
         return new JsonResponse(['error' => 'refresh_token_error'], Response::HTTP_UNAUTHORIZED);
     }
 
