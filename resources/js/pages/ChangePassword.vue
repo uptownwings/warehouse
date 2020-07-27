@@ -6,8 +6,8 @@
                     <div class="card-header">Change your password</div>
                     <div class="card-body">
                         <div class="alert alert-danger" v-if="has_error && !success">
-                            <p v-if="error == 'registration_validation_error'">Validation Errors.</p>
-                            <p v-else>Error, can not register at the moment. If the problem persists, please contact an
+                            <p v-if="error == 'validation_error'">Passwords do not match.</p>
+                            <p v-else>Error, can not change passwords at the moment. If the problem persists, please contact an
                                 administrator.</p>
                         </div>
                         <form autocomplete="off" @submit.prevent="changePassword" v-if="!success" method="post">
@@ -45,7 +45,17 @@
         },
         methods: {
             changePassword() {
-                alert(this.token);
+                if (this.password !== this.password_confirmation) {
+                    this.has_error = true
+                    this.error = 'validation_error'
+                    this.errors.password = 'passwords do not match'
+                } else {
+                    let data = {
+                        token: this.token,
+                        password: this.password
+                    }
+                    alert(data.password);
+                }
             }
         }
     }

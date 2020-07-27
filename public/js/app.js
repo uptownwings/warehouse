@@ -3221,7 +3221,17 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     changePassword: function changePassword() {
-      alert(this.token);
+      if (this.password !== this.password_confirmation) {
+        this.has_error = true;
+        this.error = 'validation_error';
+        this.errors.password = 'passwords do not match';
+      } else {
+        var data = {
+          token: this.token,
+          password: this.password
+        };
+        alert(data.password);
+      }
     }
   }
 });
@@ -41103,11 +41113,11 @@ var render = function() {
           _c("div", { staticClass: "card-body" }, [
             _vm.has_error && !_vm.success
               ? _c("div", { staticClass: "alert alert-danger" }, [
-                  _vm.error == "registration_validation_error"
-                    ? _c("p", [_vm._v("Validation Errors.")])
+                  _vm.error == "validation_error"
+                    ? _c("p", [_vm._v("Passwords do not match.")])
                     : _c("p", [
                         _vm._v(
-                          "Error, can not register at the moment. If the problem persists, please contact an\n                            administrator."
+                          "Error, can not change passwords at the moment. If the problem persists, please contact an\n                            administrator."
                         )
                       ])
                 ])
@@ -41391,7 +41401,7 @@ var render = function() {
                   _c(
                     "label",
                     [
-                      _c("router-link", { attrs: { to: "reset" } }, [
+                      _c("router-link", { attrs: { to: "resetpassword" } }, [
                         _vm._v("Forgot your password?")
                       ])
                     ],
@@ -57764,8 +57774,8 @@ var routes = [{
     auth: false
   }
 }, {
-  path: '/reset',
-  name: 'reset',
+  path: '/resetpassword',
+  name: 'resetpassword',
   component: _pages_ResetPassword__WEBPACK_IMPORTED_MODULE_5__["default"],
   meta: {
     auth: false

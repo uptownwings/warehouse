@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label>
-                                    <router-link to="reset">Forgot your password?</router-link>
+                                    <router-link to="resetpassword">Forgot your password?</router-link>
                                 </label>
                             </div>
                             <button type="submit" class="btn btn-primary">Log in</button>
