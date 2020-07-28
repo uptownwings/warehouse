@@ -10,12 +10,22 @@
                             <tr>
                                 <th>id</th>
                                 <th>name</th>
+                                <th>EAN</th>
                                 <th>type</th>
+                                <th>weight</th>
+                                <th>color</th>
+                                <th>quantity</th>
+                                <th>price</th>
                             </tr>
                             <tr v-for="row in laravelData.data">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.name }}</td>
+                                <td>{{ row.EAN }}</td>
                                 <td>{{ row.type }}</td>
+                                <td>{{ row.weight }} kg</td>
+                                <td>{{ row.color }}</td>
+                                <td>{{ row.quantity }}</td>
+                                <td>{{ row.price | toCurrency }}</td>
                             </tr>
                         </table>
                         <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>
@@ -53,3 +63,12 @@
         }
     }
 </script>
+<style>
+    table {
+        width: 100%;
+    }
+
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>

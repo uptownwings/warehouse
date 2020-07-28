@@ -20,7 +20,7 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
         return $this->showAll();
     }
 
-    public function getWarehouseData(Request $request, int $paginationSize = 25): LengthAwarePaginator
+    public function getWarehouseData(int $paginationSize = 25): LengthAwarePaginator
     {
         $data = WarehouseItem::query()->paginate($paginationSize);
         return $data;

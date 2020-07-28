@@ -10,6 +10,19 @@ import Index from './Index'
 import auth from './auth'
 import router from './router'
 
+// Define currency filter
+Vue.filter('toCurrency', function (value) {
+    value = parseFloat(value)
+
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR',
+        minimumFractionDigits: 2
+    });
+    return formatter.format(value);
+});
+
+
 // Set Vue globally
 window.Vue = Vue
 
@@ -22,7 +35,6 @@ Vue.use(VueAxios, axios)
 axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api/v1`
 Vue.use(VueAuth, auth)
 
-// Load Index
 Vue.component('index', Index)
 Vue.component('pagination', require('laravel-vue-pagination'));
 const app = new Vue({

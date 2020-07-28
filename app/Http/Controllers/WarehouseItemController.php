@@ -17,9 +17,9 @@ class WarehouseItemController extends Controller
         $this->itemRepository = $itemRepository;
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(WarehouseItemRepositoryInterface $itemRepository): JsonResponse
     {
-        $data = WarehouseItem::query()->paginate(25);
+        $data = $itemRepository->getWarehouseData();
         return response()->json($data, Response::HTTP_OK);
     }
 }
