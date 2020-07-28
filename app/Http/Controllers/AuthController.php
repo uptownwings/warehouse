@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CreateUserRequest;
 use Illuminate\Auth\Events\PasswordReset;
+use App\Http\Requests\ChangePasswordRequest;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use App\Repositories\PasswordResets\PasswordResetRepositoryInterface;
 
 class AuthController extends Controller
 {
@@ -69,15 +71,32 @@ class AuthController extends Controller
     {
         if ($token = $this->guard()->refresh()) {
             return response()
-                ->json(['status' => 'successs'], 200)
+                ->json(['status' => 'successs'], Response::HTTP_OK)
                 ->header('Authorization', $token);
         }
-        return response()->json(['error' => 'refresh_token_error'], 401);
+
+        return response()->json(['error' => 'refresh_token_error'], Response::HTTP_UNAUTHORIZED);
     }
 
     public function doReset(ResetRequest $request)
     {
         return $this->sendPasswordResetLink($request);
+    }
+
+    public function changepassword(
+        ChangePasswordRequest $request,
+        PasswordResetRepositoryInterface $resetRepository,
+        UserRepositoryInterface $userRepository
+    ): JsonResponse {
+        $userId = $resetRepository->getUserId($request);
+
+        if ($userRepository->changePassword($userId, $request->password)) {
+            $response = response()->json(['status', 'success'], Response::HTTP_OK);
+        } else {
+            $response = response()->json(['status', 'failure'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $response;
     }
 
     public function sendPasswordResetLink(Request $request)

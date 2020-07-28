@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
-import Dashboard from './pages/user/Dashboard'
+import Dashboard from './pages/Dashboard'
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 

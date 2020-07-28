@@ -31,6 +31,8 @@
     </div>
 </template>
 <script>
+    import router from "../router";
+
     export default {
         data() {
             return {
@@ -54,7 +56,14 @@
                         token: this.token,
                         password: this.password
                     }
-                    alert(data.password);
+                    axios.post('auth/changepassword', data).then(
+                        (response) => {
+                            this.$router.push({name: 'login'})
+                        }, (error) => {
+                            this.has_error = true;
+                            this.error = error;
+                        }
+                    )
                 }
             }
         }

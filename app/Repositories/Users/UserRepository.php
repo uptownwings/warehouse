@@ -28,4 +28,24 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->save();
         return $user;
     }
+
+    public function getUserByEmail(string $email): User
+    {
+        return $this->model::query()->where('email', '=', $email)->first();
+    }
+
+    public function changePassword(int $userId, string $password): bool
+    {
+        $user = $this->model::query()->find($userId);
+        if (null !== $user) {
+            $user->password = bcrypt($password);
+            $result = $user->save();
+        } else {
+            $result = false;
+        }
+
+        return $result;
+    }
+
+
 }

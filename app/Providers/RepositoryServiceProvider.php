@@ -16,5 +16,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\Users\UserRepositoryInterface',
             'App\Repositories\Users\UserRepository'
         );
+        $this->app->bind(
+            'App\Repositories\PasswordResets\PasswordResetRepositoryInterface',
+            'App\Repositories\PasswordResets\PasswordResetRepository'
+        );
     }
 }
