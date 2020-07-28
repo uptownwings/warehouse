@@ -1,9 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
-use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
@@ -12,14 +14,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $users = User::all();
         return response()->json(
             [
                 'status' => 'success',
                 'users' => $users->toArray()
-            ], 200);
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
@@ -35,7 +39,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,26 +50,28 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($userId): JsonResponse
     {
-        $user = User::find($id);
+        $user = User::query()->find($userId);
         return response()->json(
             [
                 'status' => 'success',
                 'user' => $user->toArray()
-            ], 200);
+            ],
+            Response::HTTP_OK
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($userId): JsonResponse
     {
         //
     }
@@ -73,11 +79,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id): JsonResponse
     {
         //
     }
@@ -85,10 +91,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id): JsonResponse
     {
         //
     }

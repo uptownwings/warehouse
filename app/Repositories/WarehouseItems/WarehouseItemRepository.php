@@ -2,7 +2,6 @@
 
 namespace App\Repositories\WarehouseItems;
 
-use App\User;
 use App\WarehouseItem;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Collection;

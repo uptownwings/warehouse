@@ -83,6 +83,11 @@ class AuthController extends Controller
         return $this->sendPasswordResetLink($request);
     }
 
+    public function sendPasswordResetLink(Request $request)
+    {
+        return $this->sendResetLinkEmail($request);
+    }
+
     public function changepassword(
         ChangePasswordRequest $request,
         PasswordResetRepositoryInterface $resetRepository,
@@ -99,17 +104,12 @@ class AuthController extends Controller
         return $response;
     }
 
-    public function sendPasswordResetLink(Request $request)
-    {
-        return $this->sendResetLinkEmail($request);
-    }
-
     public function callResetPassword(Request $request): JsonResponse
     {
         return $this->reset($request);
     }
 
-    protected function sendResetLinkResponse(Request $request, $response): JsonResponse
+    protected function sendResetLinkResponse($response): JsonResponse
     {
         return response()->json([
             'message' => 'Password reset email sent.',
@@ -117,7 +117,7 @@ class AuthController extends Controller
         ]);
     }
 
-    protected function sendResetLinkFailedResponse(Request $request, $response): JsonResponse
+    protected function sendResetLinkFailedResponse(): JsonResponse
     {
         return response()->json(['message' => 'Email could not be sent to this email address.']);
     }
@@ -129,12 +129,12 @@ class AuthController extends Controller
         event(new PasswordReset($user));
     }
 
-    protected function sendResetResponse(Request $request, $response): JsonResponse
+    protected function sendResetResponse(): JsonResponse
     {
         return response()->json(['message' => 'Password reset successfully.']);
     }
 
-    protected function sendResetFailedResponse(Request $request, $response): JsonResponse
+    protected function sendResetFailedResponse(): JsonResponse
     {
         return response()->json(['message' => 'Failed, Invalid Token.']);
     }

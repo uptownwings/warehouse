@@ -8,8 +8,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class WarehouseItem extends Model
 {
     protected $fillable = [
-        'name', 'EAN', 'type', 'weight', 'color', 'active', 'quantity', 'price'
+        'name',
+        'EAN',
+        'type',
+        'weight',
+        'color',
+        'active',
+        'quantity',
+        'price'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::deleting(function ($warehouseItem) {
+            $warehouseItem->priceHistory()->each(function ($priceHistory) {
+                $priceHistory->delete();
+            });
+            $warehouseItem->quantityHistory()->each(function ($quantityHistory) {
+                $quantityHistory->delete();
+            });
+        });
+    }
 
     public function priceHistory(): hasMany
     {
