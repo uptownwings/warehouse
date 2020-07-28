@@ -24,6 +24,7 @@ Vue.use(VueAuth, auth)
 
 // Load Index
 Vue.component('index', Index)
+Vue.component('pagination', require('laravel-vue-pagination'));
 const app = new Vue({
     el: '#app',
     router

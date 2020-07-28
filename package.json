@@ -26,6 +26,7 @@
     "dependencies": {
         "@websanova/vue-auth": "^3.2.1-beta",
         "es6-promise": "^4.2.8",
+        "laravel-vue-pagination": "^2.3.1",
         "vue-axios": "^2.1.5",
         "vue-jwt-auth": "^0.12.4-moved",
         "vue-resource": "^1.5.1",

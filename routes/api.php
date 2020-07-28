@@ -15,18 +15,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     Route::prefix('auth')->group(function () {
-        Route::post('register', 'AuthController@register');
-        Route::post('login', 'AuthController@login');
-        Route::get('refresh', 'AuthController@refresh');
+        Route::post('register', 'AuthController@register')->name('auth.register');
+        Route::post('login', 'AuthController@login')->name('auth.login');
+        Route::get('refresh', 'AuthController@refresh')->name('auth.refresh');
         Route::post('reset', 'AuthController@doReset')->name('password.reset');
-        Route::post('changepassword', 'AuthController@changepassword');
+        Route::post('changepassword', 'AuthController@changepassword')->name('auth.changepassword');
         Route::middleware('auth:api')->group(function () {
-            Route::get('user', 'AuthController@user');
-            Route::post('logout', 'AuthController@logout');
+            Route::get('user', 'AuthController@user')->name('user');
+            Route::post('logout', 'AuthController@logout')->name('logout');
         });
     });
 
     Route::middleware('auth:api')->group(function () {
         Route::resource('user', 'UserController')->only(['index','show']);
+    });
+    Route::prefix('warehouse')->middleware('auth:api')->group(function () {
+        Route::get('index', 'WarehouseItemController@index')->name('warehouse.index');
     });
 });

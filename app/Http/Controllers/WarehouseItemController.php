@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\WarehouseItem;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Repositories\WarehouseItems\WarehouseItemRepositoryInterface;
 
@@ -17,6 +19,7 @@ class WarehouseItemController extends Controller
 
     public function index(Request $request): JsonResponse
     {
-        return new JsonResponse($this->itemRepository->index($request), 200);
+        $data = WarehouseItem::query()->paginate(25);
+        return response()->json($data, Response::HTTP_OK);
     }
 }
