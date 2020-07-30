@@ -9,6 +9,11 @@ import VueRouter from 'vue-router'
 import Index from './Index'
 import auth from './auth'
 import router from './router'
+import Chartkick from 'vue-chartkick'
+import Chart from 'chart.js'
+
+// Initialize charting libraries
+Vue.use(Chartkick.use(Chart))
 
 // Define currency filter
 Vue.filter('toCurrency', function (value) {

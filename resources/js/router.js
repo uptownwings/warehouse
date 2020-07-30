@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard'
 import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 import WarehouseItemEdit from "./pages/WarehouseItemEdit";
+import ShowWarehouseItem from "./pages/ShowWarehouseItem";
 
 // Routes
 const routes = [
@@ -50,7 +51,6 @@ const routes = [
             auth: false
         }
     },
-    // USER ROUTES
     {
         path: '/dashboard',
         name: 'dashboard',
@@ -64,6 +64,14 @@ const routes = [
         path: '/warehouse/edit/:id',
         name: 'warehouse.edit',
         component: WarehouseItemEdit,
+        meta: {
+            auth: true
+        }
+    },
+    {
+        path: '/warehouse/show/:id',
+        name: 'warehouse.show',
+        component: ShowWarehouseItem,
         meta: {
             auth: true
         }

@@ -20,5 +20,9 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\PasswordResets\PasswordResetRepositoryInterface',
             'App\Repositories\PasswordResets\PasswordResetRepository'
         );
+        $this->app->bind(
+            'App\Repositories\ItemPriceHistory\ItemPriceHistoryRepositoryInterface',
+            'App\Repositories\ItemPriceHistory\ItemPriceHistoryRepository'
+        );
     }
 }

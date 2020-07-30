@@ -25,9 +25,11 @@
     },
     "dependencies": {
         "@websanova/vue-auth": "^3.2.1-beta",
+        "chart.js": "^2.9.3",
         "es6-promise": "^4.2.8",
         "laravel-vue-pagination": "^2.3.1",
         "vue-axios": "^2.1.5",
+        "vue-chartkick": "^0.6.1",
         "vue-fontawesome": "0.0.2",
         "vue-jwt-auth": "^0.12.4-moved",
         "vue-resource": "^1.5.1",

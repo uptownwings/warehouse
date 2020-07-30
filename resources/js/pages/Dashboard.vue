@@ -28,7 +28,12 @@
                                 <td>{{ row.quantity }}</td>
                                 <td class="text-right">{{ row.price | toCurrency }}</td>
                                 <td>
-                                    <router-link :to="{name: 'warehouse.edit', params: { id: row.id }}" tag="button">Edit</router-link>
+                                    <router-link :to="{name: 'warehouse.show', params: { id: row.id }}" tag="button">
+                                        View
+                                    </router-link>
+                                    <router-link :to="{name: 'warehouse.edit', params: { id: row.id }}" tag="button">
+                                        Edit
+                                    </router-link>
                                     <button @click="deleteWarehouseItem(row.id)">Delete</button>
                                 </td>
                             </tr>
@@ -60,13 +65,16 @@
                     page = 1;
                 }
 
-                axios.get('/warehouse/index?page=' + page)
-                    .then((response) => {
-                    this.laravelData = response.data;
-                });
+                axios.get('/warehouse/index?page=' + page).then(
+                    (response) => {
+                        this.laravelData = response.data;
+                    }, (error) => {
+                        console.log(error);
+                    }
+                );
             },
             deleteWarehouseItem(id) {
-
+                alert('Not implemented yet')
             }
         }
     }
@@ -75,6 +83,7 @@
     table {
         width: 100%;
     }
+
     table, th, td {
         border: 1px solid black;
         padding: 3px;

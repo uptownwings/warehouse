@@ -27,11 +27,18 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->group(function () {
-        Route::resource('user', 'UserController')->only(['index','show']);
+        Route::resource('user', 'UserController')->only(['index', 'show']);
     });
+
     Route::prefix('warehouse')->middleware('auth:api')->group(function () {
         Route::get('index', 'WarehouseItemController@index')->name('warehouse.index');
         Route::get('item', 'WarehouseItemController@item')->name('warehouse.item');
         Route::post('update', 'WarehouseItemController@update')->name('warehouse.update');
+
+        Route::prefix('pricehistory')->group(function () {
+            Route::get('item', 'ItemPriceHistoryController@itemHistory')->name('warehouse.pricehistory.item');
+        });
     });
+
+
 });

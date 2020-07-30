@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Edit Warehouse Item '{{ item.name }}' (id: {{ item.id }})</div>
+                    <div class="card-header">Edit Warehouse Item: '{{ item.name }}' (id: {{ item.id }})</div>
                     <div class="card-body">
                         <form @submit.prevent="updateWarehouseItem">
                             <div class="form-group">
