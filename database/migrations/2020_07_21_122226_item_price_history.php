@@ -18,6 +18,7 @@ class ItemPriceHistory extends Migration
             $table->integer('item_id');
             $table->double('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

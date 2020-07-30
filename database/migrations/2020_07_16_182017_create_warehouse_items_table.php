@@ -24,6 +24,7 @@ class CreateWarehouseItemsTable extends Migration
             $table->integer('quantity');
             $table->double('price');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

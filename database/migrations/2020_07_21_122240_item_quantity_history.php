@@ -18,6 +18,7 @@ class ItemQuantityHistory extends Migration
             $table->integer('item_id');
             $table->double('quantity');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
