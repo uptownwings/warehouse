@@ -66,11 +66,9 @@
                     (response) => {
                         let i = 1
                         response.data.forEach(obj => {
-
                             this.itemHistoryData.push([i, parseFloat(obj.price)]);
                             i++
                         })
-                        console.log(this.itemHistoryData)
                     },
                     (error) => {
                         console.log(error)

@@ -3681,7 +3681,6 @@ __webpack_require__.r(__webpack_exports__);
 
           i++;
         });
-        console.log(_this.itemHistoryData);
       }, function (error) {
         console.log(error);
       });
@@ -83664,30 +83663,31 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "card card-default" }, [
-        _c("div", { staticClass: "card-header" }, [
-          _vm._v("Welcome to the warehouse")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("p", [
-            _vm._v(
-              "Please log in or register for a new account and then log in."
-            )
-          ])
-        ])
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "card card-default" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _vm._v("Welcome to the warehouse")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c(
+          "p",
+          [
+            _vm._v("Please "),
+            _c("router-link", { attrs: { to: "login" } }, [_vm._v("log in")]),
+            _vm._v(" or "),
+            _c("router-link", { attrs: { to: "register" } }, [
+              _vm._v("register")
+            ]),
+            _vm._v(" for a new account and then log in.")
+          ],
+          1
+        )
       ])
     ])
-  }
-]
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -47,6 +47,8 @@ class PurgeDatabase extends Command
         $date = new \DateTime();
         $date->modify('-' . $this->days . ' days');
         $formattedDate = $date->format('Y-m-d H:i:s');
-        WarehouseItem::query()->where('created_at', '<=', $formattedDate)->delete();
+        WarehouseItem::query()
+            ->where('created_at', '<=', $formattedDate)
+            ->delete();
     }
 }
