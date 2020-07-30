@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use ItemPriceHistory;
 use App\PriceHistory;
 use App\WarehouseItem;
 use App\QuantityHistory;
