@@ -2,7 +2,10 @@
 
 namespace App\Console\Commands;
 
+use ItemPriceHistory;
+use App\PriceHistory;
 use App\WarehouseItem;
+use App\QuantityHistory;
 use Illuminate\Console\Command;
 
 class PurgeDatabase extends Command
@@ -47,8 +50,14 @@ class PurgeDatabase extends Command
         $date = new \DateTime();
         $date->modify('-' . $this->days . ' days');
         $formattedDate = $date->format('Y-m-d H:i:s');
-        WarehouseItem::query()
-            ->where('created_at', '<=', $formattedDate)
+        WarehouseItem::onlyTrashed()
+            ->where('deleted_at', '<=', $formattedDate)
+            ->delete();
+        PriceHistory::onlyTrashed()
+            ->where('deleted_at', '<=', $formattedDate)
+            ->delete();
+        QuantityHistory::onlyTrashed()
+            ->where('deleted_at', '<=', $formattedDate)
             ->delete();
     }
 }
