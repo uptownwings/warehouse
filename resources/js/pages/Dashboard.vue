@@ -16,16 +16,21 @@
                                 <th>color</th>
                                 <th>quantity</th>
                                 <th>price</th>
+                                <th>action</th>
                             </tr>
                             <tr v-for="row in laravelData.data">
                                 <td>{{ row.id }}</td>
                                 <td>{{ row.name }}</td>
                                 <td>{{ row.EAN }}</td>
                                 <td>{{ row.type }}</td>
-                                <td>{{ row.weight }} kg</td>
+                                <td class="text-right">{{ row.weight }} kg</td>
                                 <td>{{ row.color }}</td>
                                 <td>{{ row.quantity }}</td>
-                                <td>{{ row.price | toCurrency }}</td>
+                                <td class="text-right">{{ row.price | toCurrency }}</td>
+                                <td>
+                                    <router-link :to="{name: 'warehouse.edit', params: { id: row.id }}" tag="button">Edit</router-link>
+                                    <button @click="deleteWarehouseItem(row.id)">Delete</button>
+                                </td>
                             </tr>
                         </table>
                         <pagination :data="laravelData" @pagination-change-page="getResults"></pagination>
@@ -59,6 +64,9 @@
                     .then((response) => {
                     this.laravelData = response.data;
                 });
+            },
+            deleteWarehouseItem(id) {
+
             }
         }
     }
@@ -67,8 +75,8 @@
     table {
         width: 100%;
     }
-
     table, th, td {
         border: 1px solid black;
+        padding: 3px;
     }
 </style>

@@ -31,5 +31,6 @@ Route::prefix('v1')->group(function () {
     });
     Route::prefix('warehouse')->middleware('auth:api')->group(function () {
         Route::get('index', 'WarehouseItemController@index')->name('warehouse.index');
+        Route::get('item', 'WarehouseItemController@item')->name('warehouse.item');
     });
 });

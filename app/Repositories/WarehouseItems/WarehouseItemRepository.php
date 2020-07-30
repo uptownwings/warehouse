@@ -3,7 +3,6 @@
 namespace App\Repositories\WarehouseItems;
 
 use App\WarehouseItem;
-use Illuminate\Http\Request;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -22,7 +21,11 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
 
     public function getWarehouseData(int $paginationSize = 25): LengthAwarePaginator
     {
-        $data = WarehouseItem::query()->paginate($paginationSize);
-        return $data;
+        return WarehouseItem::query()->paginate($paginationSize);
+    }
+
+    public function getWarehouseItem(int $itemId): WarehouseItem
+    {
+        return $this->model::query()->find($itemId)->first();
     }
 }

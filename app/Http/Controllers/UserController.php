@@ -16,6 +16,7 @@ class UserController extends Controller
     public function index(): JsonResponse
     {
         $users = User::all();
+
         return response()->json(
             [
                 'status' => 'success',
@@ -34,6 +35,7 @@ class UserController extends Controller
     public function show($userId): JsonResponse
     {
         $user = User::query()->find($userId);
+
         return response()->json(
             [
                 'status' => 'success',

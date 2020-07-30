@@ -27,6 +27,7 @@ class AuthController extends Controller
     public function register(CreateUserRequest $request, UserRepositoryInterface $repository): JsonResponse
     {
         $user = $repository->createUser($request);
+
         return response()->json(['status' => 'success', 'user' => $user], Response::HTTP_OK);
     }
 
@@ -51,6 +52,7 @@ class AuthController extends Controller
     public function logout(): JsonResponse
     {
         $this->guard()->logout();
+
         return response()->json([
             'status' => 'success',
             'msg' => 'Logged out Successfully.'

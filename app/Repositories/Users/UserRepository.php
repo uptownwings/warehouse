@@ -26,6 +26,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user->password = bcrypt($request->password);
         $user->role = 0;
         $user->save();
+
         return $user;
     }
 
@@ -46,6 +47,4 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $result;
     }
-
-
 }
