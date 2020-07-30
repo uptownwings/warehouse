@@ -4,6 +4,7 @@ namespace App\Repositories\WarehouseItems;
 
 use App\WarehouseItem;
 use App\Repositories\BaseRepository;
+use App\Http\Requests\UpdateItemRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -27,5 +28,23 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
     public function getWarehouseItem(int $itemId): WarehouseItem
     {
         return $this->model::query()->find($itemId)->first();
+    }
+
+    public function updateWarehouseItem(UpdateItemRequest $request): WarehouseItem
+    {
+        $item = $this->model::query()->find($request->id)->first();
+        if (null !== $item) {
+            $item->name = $request->name;
+            $item->EAN = $request->EAN;
+            $item->type = $request->type;
+            $item->weight = $request->weight;
+            $item->color = $request->color;
+            $item->active = $request->active;
+            $item->quantity = $request->quantity;
+            $item->price = $request->price;
+            $item->save();
+        }
+
+        return $item;
     }
 }
