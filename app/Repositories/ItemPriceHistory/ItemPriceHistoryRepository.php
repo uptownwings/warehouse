@@ -17,4 +17,6 @@ class ItemPriceHistoryRepository extends BaseRepository implements ItemPriceHist
     {
         return $this->model::query()->where('item_id', '=', $itemId)->orderBy('id')->get();
     }
+
+
 }

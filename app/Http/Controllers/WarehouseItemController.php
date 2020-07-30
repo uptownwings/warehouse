@@ -30,4 +30,14 @@ class WarehouseItemController extends Controller
 
         return response()->json($data, (null !== $data) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
     }
+
+    public function delete(Request $request, WarehouseItemRepositoryInterface $itemRepository): JsonResponse
+    {
+        $result = $itemRepository->deleteWarehouseItem((int)$request->id);
+
+        return response()->json(
+            ['result' => ($result) ? 'success' : 'failure'],
+            $result ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+        );
+    }
 }

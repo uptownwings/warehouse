@@ -45,39 +45,55 @@
         </div>
     </div>
 </template>
-
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        },
-        data() {
-            return {
-                laravelData: {},
+export default {
+    mounted() {
+        console.log('Component mounted.')
+    },
+    data() {
+        return {
+            laravelData: {}
+        }
+    },
+    created() {
+        this.getResults();
+    },
+    methods: {
+        getResults(page) {
+            if (typeof page === 'undefined') {
+                page = 1;
             }
-        },
-        created() {
-            this.getResults();
-        },
-        methods: {
-            getResults(page) {
-                if (typeof page === 'undefined') {
-                    page = 1;
-                }
 
-                axios.get('/warehouse/index?page=' + page).then(
-                    (response) => {
-                        this.laravelData = response.data;
-                    }, (error) => {
-                        console.log(error);
+            axios.get('/warehouse/index?page=' + page).then(
+                (response) => {
+                    this.laravelData = response.data;
+                }, (error) => {
+                    console.log(error);
+                }
+            );
+        },
+        deleteWarehouseItem(id) {
+            this.$confirm(
+                {
+                    message: 'This will delete this warehouse item and related data. Are you sure?',
+                    button: {
+                        no: 'No',
+                        yes: 'Yes'
+                    },
+                    callback: confirm => {
+                        if (confirm) {
+                            axios.delete('/warehouse/item?id=' + id).then(
+                                (response) => {
+                                    this.getResults();
+                                }
+                            )
+                        }
                     }
-                );
-            },
-            deleteWarehouseItem(id) {
-                alert('Not implemented yet')
-            }
+                }
+            )
         }
     }
+}
 </script>
 <style>
     table {

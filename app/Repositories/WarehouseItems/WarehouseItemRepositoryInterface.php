@@ -16,4 +16,6 @@ interface WarehouseItemRepositoryInterface
     public function getWarehouseItem(int $itemId): WarehouseItem;
 
     public function updateWarehouseItem(UpdateItemRequest $request): WarehouseItem;
+
+    public function deleteWarehouseItem(int $itemId): bool;
 }

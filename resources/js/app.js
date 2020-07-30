@@ -11,6 +11,11 @@ import auth from './auth'
 import router from './router'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
+import VueConfirmDialog from 'vue-confirm-dialog'
+
+// Initialize confirmation dialog
+Vue.use(VueConfirmDialog)
+Vue.component('vue-confirm-dialog', VueConfirmDialog.default)
 
 // Initialize charting libraries
 Vue.use(Chartkick.use(Chart))

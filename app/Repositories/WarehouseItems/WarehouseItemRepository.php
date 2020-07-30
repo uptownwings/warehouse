@@ -47,4 +47,9 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
 
         return $item;
     }
+
+    public function deleteWarehouseItem(int $itemId): bool
+    {
+        return $this->model::query()->find($itemId)->delete();
+    }
 }

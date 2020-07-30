@@ -1,5 +1,6 @@
 <template>
     <div id="main">
+        <vue-confirm-dialog></vue-confirm-dialog>
         <header id="header">
             <Menu></Menu>
         </header>
@@ -17,7 +18,7 @@
             }
         },
         components: {
-            Menu
+            Menu,
         }
     }
 </script>
