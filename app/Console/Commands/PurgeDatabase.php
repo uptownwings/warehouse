@@ -20,7 +20,7 @@ class PurgeDatabase extends Command
      *
      * @var string
      */
-    protected $description = 'Purges database of data older than set number of days';
+    protected $description = 'Purges database of deleted data older than set number of days';
 
     /**
      * The number of days after which data should be purged from the database.

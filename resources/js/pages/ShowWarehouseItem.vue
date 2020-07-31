@@ -31,9 +31,12 @@
                     </div>
                     <div class="card-header">Price history</div>
                     <div class="card-body">
-                        <line-chart :data="itemHistoryData"></line-chart>
+                        <line-chart :data="itemHistoryData" :curve="false"></line-chart>
                     </div>
-
+                    <div class="card-header">Quantity history</div>
+                    <div class="card-body">
+                        <line-chart :data="itemQuantityData" :curve="false"></line-chart>
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,7 +49,8 @@
         data() {
             return {
                 itemData: {},
-                itemHistoryData: []
+                itemHistoryData: [],
+                itemQuantityData: []
             }
         },
         created() {
@@ -66,7 +70,19 @@
                     (response) => {
                         let i = 1
                         response.data.forEach(obj => {
-                            this.itemHistoryData.push([i, parseFloat(obj.price)]);
+                            this.itemHistoryData.push([obj.created_at, parseFloat(obj.price)]);
+                            i++
+                        })
+                    },
+                    (error) => {
+                        console.log(error)
+                    }
+                )
+                axios.get('/warehouse/quantityhistory/item?itemId=' + this.$route.params.id).then(
+                    (response) => {
+                        let i = 1
+                        response.data.forEach(obj => {
+                            this.itemQuantityData.push([obj.created_at, parseFloat(obj.quantity)]);
                             i++
                         })
                     },

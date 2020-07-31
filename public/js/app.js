@@ -3669,12 +3669,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {},
   data: function data() {
     return {
       itemData: {},
-      itemHistoryData: []
+      itemHistoryData: [],
+      itemQuantityData: []
     };
   },
   created: function created() {
@@ -3692,7 +3696,17 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/warehouse/pricehistory/item?itemId=' + this.$route.params.id).then(function (response) {
         var i = 1;
         response.data.forEach(function (obj) {
-          _this.itemHistoryData.push([i, parseFloat(obj.price)]);
+          _this.itemHistoryData.push([obj.created_at, parseFloat(obj.price)]);
+
+          i++;
+        });
+      }, function (error) {
+        console.log(error);
+      });
+      axios.get('/warehouse/quantityhistory/item?itemId=' + this.$route.params.id).then(function (response) {
+        var i = 1;
+        response.data.forEach(function (obj) {
+          _this.itemQuantityData.push([obj.created_at, parseFloat(obj.quantity)]);
 
           i++;
         });
@@ -85060,7 +85074,26 @@ var render = function() {
           _c(
             "div",
             { staticClass: "card-body" },
-            [_c("line-chart", { attrs: { data: _vm.itemHistoryData } })],
+            [
+              _c("line-chart", {
+                attrs: { data: _vm.itemHistoryData, curve: false }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-header" }, [
+            _vm._v("Quantity history")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c("line-chart", {
+                attrs: { data: _vm.itemQuantityData, curve: false }
+              })
+            ],
             1
           )
         ])

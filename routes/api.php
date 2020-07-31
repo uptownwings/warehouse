@@ -39,6 +39,9 @@ Route::prefix('v1')->group(function () {
         Route::prefix('pricehistory')->group(function () {
             Route::get('item', 'ItemPriceHistoryController@itemHistory')->name('warehouse.pricehistory.item');
         });
+        Route::prefix('quantityhistory')->group(function () {
+            Route::get('item', 'ItemQuantityHistoryController@itemHistory')->name('warehouse.quantityhistory.item');
+        });
     });
 
 
