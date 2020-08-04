@@ -43,6 +43,4 @@ Route::prefix('v1')->group(function () {
             Route::get('item', 'ItemQuantityHistoryController@itemHistory')->name('warehouse.quantityhistory.item');
         });
     });
-
-
 });
