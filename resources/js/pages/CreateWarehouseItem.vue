@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Edit Warehouse Item: '{{ item.name }}' (id: {{ item.id }})</div>
+                    <div class="card-header">Create Warehouse Item:</div>
                     <div class="card-body">
                         <form @submit.prevent="updateWarehouseItem">
                             <div class="form-group">
@@ -61,22 +61,9 @@
                 item: {}
             }
         },
-        created () {
-            this.getItem();
-        },
         methods: {
-            getItem() {
-                axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(
-                    (response) => {
-                        this.item = response.data
-                    },
-                    (error) => {
-                        console.log(error);
-                    }
-                )
-            },
             updateWarehouseItem() {
-                axios.post('/warehouse/update', this.item).then(
+                axios.post('/warehouse/create', this.item).then(
                     (response) => {
                         this.$router.push({name: 'dashboard'})
                     },

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class WarehouseItemCreateRequest extends FormRequest
@@ -13,7 +14,7 @@ class WarehouseItemCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,14 @@ class WarehouseItemCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:5',
+            'EAN' => 'required|numeric|',
+            'type' => 'required|numeric',
+            'weight' => 'required|numeric',
+            'color' => 'required|string',
+            'active' => 'required|boolean',
+            'quantity' => 'required|min:0|max:100',
+            'price' => 'required|min:0|max:100'
         ];
     }
 }

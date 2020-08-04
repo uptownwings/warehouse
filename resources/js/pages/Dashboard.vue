@@ -4,7 +4,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Warehouse Dashboard</div>
-
+                    <router-link :to="{name: 'warehouse.create'}" tag="button">Create new Item</router-link>
                     <div class="card-body">
                         <table>
                             <tr>

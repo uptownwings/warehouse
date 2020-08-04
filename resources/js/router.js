@@ -8,6 +8,7 @@ import ResetPassword from "./pages/ResetPassword";
 import ChangePassword from "./pages/ChangePassword";
 import WarehouseItemEdit from "./pages/WarehouseItemEdit";
 import ShowWarehouseItem from "./pages/ShowWarehouseItem";
+import CreateWarehouseItem from "./pages/CreateWarehouseItem";
 
 // Routes
 const routes = [
@@ -60,6 +61,14 @@ const routes = [
         }
     },
     // Warehouse routes
+    {
+        path: '/warehouse/create',
+        name: 'warehouse.create',
+        component: CreateWarehouseItem,
+        meta: {
+            auth: true
+        }
+    },
     {
         path: '/warehouse/edit/:id',
         name: 'warehouse.edit',
