@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
-use App\Repositories\ItemQuantityHistory\ItemQuantityHistoryProviderInterface;
+use App\Repositories\ItemQuantityHistory\ItemQuantityHistoryRepositoryInterface;
 
 class ItemQuantityHistoryController extends Controller
 {
-    public function itemHistory(Request $request, ItemQuantityHistoryProviderInterface $historyProvider): JsonResponse
+    private $historyProvider;
+
+    public function __construct(ItemQuantityHistoryRepositoryInterface $historyProvider)
     {
-        return response()->json($historyProvider->itemQuantityHistory((int)$request->itemId), Response::HTTP_OK);
+        $this->historyProvider = $historyProvider;
+    }
+
+    public function itemHistory(Request $request): JsonResponse
+    {
+        return response()->json($this->historyProvider->itemQuantityHistory((int)$request->itemId), Response::HTTP_OK);
     }
 }

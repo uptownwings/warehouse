@@ -4,6 +4,7 @@ namespace App\Repositories\ItemPriceHistory;
 
 use App\PriceHistory;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class ItemPriceHistoryRepository extends BaseRepository implements ItemPriceHistoryRepositoryInterface
@@ -15,7 +16,11 @@ class ItemPriceHistoryRepository extends BaseRepository implements ItemPriceHist
 
     public function itemPriceHistory(int $itemId): Collection
     {
-        return $this->model::query()->where('item_id', '=', $itemId)->orderBy('id')->get();
+        return $this->model::query()
+        ->where('item_id', '=', $itemId)
+        ->where('created_at', '>=', Carbon::now()->subDays(90))
+        ->orderBy('id')
+        ->get();
     }
 
 

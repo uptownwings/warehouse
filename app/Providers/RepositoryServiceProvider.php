@@ -25,8 +25,8 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\ItemPriceHistory\ItemPriceHistoryRepository'
         );
         $this->app->bind(
-            'App\Repositories\ItemQuantityHistory\ItemQuantityHistoryProviderInterface',
-            'App\Repositories\ItemQuantityHistory\ItemQuantityHistoryProvider'
+            'App\Repositories\ItemQuantityHistory\ItemQuantityHistoryRepositoryInterface',
+            'App\Repositories\ItemQuantityHistory\ItemQuantityHistoryRepository'
         );
     }
 }

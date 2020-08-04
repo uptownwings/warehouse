@@ -5,7 +5,7 @@ namespace App\Repositories\ItemQuantityHistory;
 use Illuminate\Database\Eloquent\Collection;
 use App\Repositories\BaseRepositoryInterface;
 
-interface ItemQuantityHistoryProviderInterface extends BaseRepositoryInterface
+interface ItemQuantityHistoryRepositoryInterface extends BaseRepositoryInterface
 {
     public function itemQuantityHistory(int $itemId): Collection;
 }

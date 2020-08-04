@@ -3688,7 +3688,7 @@ __webpack_require__.r(__webpack_exports__);
     getItemData: function getItemData() {
       var _this = this;
 
-      axios.get('/warehouse/item?itemId=' + this.$route.params.id).then(function (response) {
+      axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(function (response) {
         _this.itemData = response.data;
       }, function (error) {
         console.log(error);
@@ -3797,7 +3797,7 @@ __webpack_require__.r(__webpack_exports__);
     getItem: function getItem() {
       var _this = this;
 
-      axios.get('/warehouse/item?itemId=' + this.$route.params.id).then(function (response) {
+      axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(function (response) {
         _this.item = response.data;
       }, function (error) {
         console.log(error);

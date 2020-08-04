@@ -6,34 +6,52 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\UpdateItemRequest;
+use App\Http\Requests\WarehouseItemCreateRequest;
 use App\Repositories\WarehouseItems\WarehouseItemRepositoryInterface;
 
 class WarehouseItemController extends Controller
 {
-    public function index(WarehouseItemRepositoryInterface $itemRepository): JsonResponse
+    private $itemRepository;
+
+    public function __construct(WarehouseItemRepositoryInterface $itemRepository)
     {
-        $data = $itemRepository->getWarehouseData();
+        $this->itemRepository = $itemRepository;
+    }
+
+    public function index(): JsonResponse
+    {
+        $data = $this->itemRepository->getWarehouseData();
 
         return response()->json($data, Response::HTTP_OK);
     }
 
-    public function item(Request $request, WarehouseItemRepositoryInterface $itemRepository): JsonResponse
+    public function show(Request $request): JsonResponse
     {
-        $data = $itemRepository->getWarehouseItem((int)$request->itemId);
+        $data = $this->itemRepository->getWarehouseItem((int)$request->itemId);
 
         return response()->json($data, (null !== $data) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
     }
 
-    public function update(UpdateItemRequest $request, WarehouseItemRepositoryInterface $itemRepository): JsonResponse
+    public function update(UpdateItemRequest $request): JsonResponse
     {
-        $data = $itemRepository->updateWarehouseItem($request);
+        $data = $this->itemRepository->updateWarehouseItem($request);
 
         return response()->json($data, (null !== $data) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
     }
 
-    public function delete(Request $request, WarehouseItemRepositoryInterface $itemRepository): JsonResponse
+    public function destroy(Request $request): JsonResponse
     {
-        $result = $itemRepository->deleteWarehouseItem((int)$request->id);
+        $result = $this->itemRepository->deleteWarehouseItem((int)$request->id);
+
+        return response()->json(
+            ['result' => ($result) ? 'success' : 'failure'],
+            $result ? Response::HTTP_OK : Response::HTTP_BAD_REQUEST
+        );
+    }
+
+    public function create(WarehouseItemCreateRequest $request): JsonResponse
+    {
+        $result = $this->itemRepository->createWarehouseItem($request);
 
         return response()->json(
             ['result' => ($result) ? 'success' : 'failure'],

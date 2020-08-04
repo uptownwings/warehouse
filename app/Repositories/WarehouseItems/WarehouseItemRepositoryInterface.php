@@ -4,6 +4,7 @@ namespace App\Repositories\WarehouseItems;
 
 use App\WarehouseItem;
 use App\Http\Requests\UpdateItemRequest;
+use App\Http\Requests\WarehouseItemCreateRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -18,4 +19,6 @@ interface WarehouseItemRepositoryInterface
     public function updateWarehouseItem(UpdateItemRequest $request): WarehouseItem;
 
     public function deleteWarehouseItem(int $itemId): bool;
+
+    public function createWarehouseItem(WarehouseItemCreateRequest $request): bool;
 }

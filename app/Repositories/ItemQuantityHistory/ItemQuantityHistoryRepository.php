@@ -6,7 +6,7 @@ use App\QuantityHistory;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class ItemQuantityHistoryProvider extends BaseRepository implements ItemQuantityHistoryProviderInterface
+class ItemQuantityHistoryRepository extends BaseRepository implements ItemQuantityHistoryRepositoryInterface
 {
     public function __construct(QuantityHistory $model)
     {

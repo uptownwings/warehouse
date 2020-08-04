@@ -58,7 +58,7 @@
         },
         methods: {
             getItemData() {
-                axios.get('/warehouse/item?itemId=' + this.$route.params.id).then(
+                axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(
                     (response) => {
                         this.itemData = response.data
                     },
