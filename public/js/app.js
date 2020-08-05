@@ -3426,7 +3426,7 @@ __webpack_require__.r(__webpack_exports__);
         },
         callback: function callback(confirm) {
           if (confirm) {
-            axios["delete"]('/warehouse/item?id=' + id).then(function (response) {
+            axios["delete"]('/warehouse/delete?id=' + id).then(function (response) {
               _this2.getResults();
             });
           }

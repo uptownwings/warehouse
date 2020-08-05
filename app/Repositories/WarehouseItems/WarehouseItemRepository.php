@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateItemRequest;
 use App\Http\Requests\WarehouseItemCreateRequest;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Log;
 
 class WarehouseItemRepository extends BaseRepository implements WarehouseItemRepositoryInterface
 {
@@ -28,12 +29,12 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
 
     public function getWarehouseItem(int $itemId): WarehouseItem
     {
-        return $this->model::query()->find($itemId)->first();
+        return $this->model::query()->find($itemId);
     }
 
     public function updateWarehouseItem(UpdateItemRequest $request): WarehouseItem
     {
-        $item = $this->model::query()->find($request->id)->first();
+        $item = $this->model::query()->find($request->id);
         if (null !== $item) {
             $item->name = $request->name;
             $item->EAN = $request->EAN;
@@ -51,6 +52,7 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
 
     public function deleteWarehouseItem(int $itemId): bool
     {
+        Log::debug('Item Id = '. $itemId);
         return $this->model::query()->find($itemId)->delete();
     }
 

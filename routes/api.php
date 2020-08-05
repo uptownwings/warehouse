@@ -34,7 +34,7 @@ Route::prefix('v1')->group(function () {
         Route::get('index', 'WarehouseItemController@index')->name('warehouse.index');
         Route::get('show', 'WarehouseItemController@show')->name('warehouse.show');
         Route::post('update', 'WarehouseItemController@update')->name('warehouse.update');
-        Route::delete('item', 'WarehouseItemController@destroy')->name('warehouse.delete');
+        Route::delete('delete', 'WarehouseItemController@destroy')->name('warehouse.delete');
         Route::post('create', 'WarehouseItemController@create')->name('warehouse.create');
 
         Route::prefix('pricehistory')->group(function () {

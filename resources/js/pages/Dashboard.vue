@@ -82,7 +82,7 @@ export default {
                     },
                     callback: confirm => {
                         if (confirm) {
-                            axios.delete('/warehouse/item?id=' + id).then(
+                            axios.delete('/warehouse/delete?id=' + id).then(
                                 (response) => {
                                     this.getResults();
                                 }
