@@ -14,6 +14,7 @@ Instructions for setting up this project:
 - Clone this repository
 - run 'composer install'
 - copy .env.example to .env and change credentials where necessary.
+- make changes to the .env file for the mailtrap configuration.
 - run 'php artisan migrate'
 - run 'php artisan db:seed'
 - run 'php artisan key:generate'
