@@ -54,7 +54,9 @@
                         password: app.password
                     },
                     success: function () {
-                        console.log(response)
+                        (response) => {
+                            console.log(response)
+                        }
                     },
                     error: function () {},
                     redirect: '/dashboard',
