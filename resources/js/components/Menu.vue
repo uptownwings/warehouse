@@ -14,11 +14,17 @@
                     <a class="nav-link" href="#" @click.prevent="$auth.logout()">{{ $t('menu.Logout') }}</a>
                 </li>
             </ul>
+            <LocaleSwitcher />
         </div>
     </nav>
 </template>
 <script>
+    import LocaleSwitcher from './LocaleSwitcher.vue'
+
     export default {
+        components: {
+            LocaleSwitcher
+        },
         data() {
             return {
                 routes: {

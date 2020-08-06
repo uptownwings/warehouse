@@ -3091,7 +3091,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3116,6 +3115,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3151,6 +3158,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _LocaleSwitcher_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LocaleSwitcher.vue */ "./resources/js/components/LocaleSwitcher.vue");
 //
 //
 //
@@ -3170,7 +3178,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    LocaleSwitcher: _LocaleSwitcher_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       routes: {
@@ -86372,12 +86385,7 @@ var render = function() {
     [
       _c("vue-confirm-dialog"),
       _vm._v(" "),
-      _c(
-        "header",
-        { attrs: { id: "header" } },
-        [_c("Menu"), _vm._v(" "), _c("LocaleSwitcher")],
-        1
-      ),
+      _c("header", { attrs: { id: "header" } }, [_c("Menu")], 1),
       _vm._v(" "),
       _c("div", { attrs: { id: "content" } }, [_c("router-view")], 1)
     ],
@@ -86406,24 +86414,49 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "ul",
-    _vm._l(_vm.locales, function(locale) {
-      return _c(
-        "li",
-        {
-          key: locale,
-          on: {
-            click: function($event) {
-              return _vm.switchLocale(locale)
+  return _c("div", { staticClass: "dropdown show" }, [
+    _c(
+      "a",
+      {
+        staticClass: "btn btn-secondary dropdown-toggle",
+        attrs: {
+          href: "#",
+          role: "button",
+          id: "dropdownMenuLink",
+          "data-toggle": "dropdown",
+          "aria-haspopup": "true",
+          "aria-expanded": "false"
+        }
+      },
+      [_vm._v("\n    Choose a language\n  ")]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "dropdown-menu",
+        attrs: { "aria-labelledby": "dropdownMenuLink" }
+      },
+      _vm._l(_vm.locales, function(locale) {
+        return _c(
+          "a",
+          {
+            key: locale,
+            staticClass: "dropdown-item",
+            on: {
+              click: function($event) {
+                return _vm.switchLocale(locale)
+              }
             }
-          }
-        },
-        [_vm._v("\n    " + _vm._s(locale) + "\n  ")]
-      )
-    }),
-    0
-  )
+          },
+          [_vm._v(_vm._s(locale))]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("ul")
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -86522,8 +86555,11 @@ var render = function() {
                   )
                 ])
               ])
-            : _vm._e()
-        ]
+            : _vm._e(),
+          _vm._v(" "),
+          _c("LocaleSwitcher")
+        ],
+        1
       )
     ],
     1

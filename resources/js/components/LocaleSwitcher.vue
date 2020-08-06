@@ -1,9 +1,17 @@
 <template>
-<ul>
-  <li v-for="locale in locales" :key="locale" @click="switchLocale(locale)">
-    {{locale}}
-  </li>
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Choose a language
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <a v-for="locale in locales" :key="locale" @click="switchLocale(locale)" class="dropdown-item">{{locale}}</a>
+  </div>
+  <ul>
 </ul>
+</div>
+
 </template>
 <script>
 export default {
