@@ -18,15 +18,21 @@ class WarehouseItemTest extends TestCase
 
     protected function tearDown(): void
     {
+        $this->doLogOut();
         parent::tearDown();
     }
 
-    public function doLogin()
+    private function doLogin()
     {
         $this->post('/api/v1/auth/login', [
             'email' => 'admin@admin.com',
             'password' => 'secret123'
         ]);
+    }
+
+    private function doLogOut()
+    {
+        $this->post('/api/v1/auth/logout');
     }
 
     public function testGetWarehouseItems()

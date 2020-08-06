@@ -19,7 +19,7 @@ class AuthTest extends TestCase
         parent::tearDown();
     }
 
-    public function testWebsiteOnline()
+    public function testTestWebsiteOnline()
     {
         $response = $this->get('/');
 
