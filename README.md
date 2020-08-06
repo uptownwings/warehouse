@@ -13,7 +13,7 @@ Instructions for setting up this project:
 
 - Clone this repository
 - run 'composer install'
-- run 'npm install'
+- copy .env.example to .env and change credentials where necessary.
 - run 'php artisan migrate'
 - run 'php artisan seed'
 - run 'php artisan serve' and then follow the link in the commandline.
