@@ -15,5 +15,10 @@ Instructions for setting up this project:
 - run 'composer install'
 - copy .env.example to .env and change credentials where necessary.
 - run 'php artisan migrate'
-- run 'php artisan seed'
+- run 'php artisan db:seed'
+- run 'php artisan key:generate'
 - run 'php artisan serve' and then follow the link in the commandline.
+(please note that in the .env.example the port of the application is set to 8000. If artisan serve gives you a different port you need to change this in the .env file.)
+
+Right off the bat you can create a new account by following the registration link, or you can log in with the following credentials:
+admin@admin.com / secret123

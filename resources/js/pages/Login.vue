@@ -45,7 +45,7 @@
         },
         methods: {
             login() {
-                let redirect = this.$auth.redirect()
+                let redirect = 'dashboard'
                 let app = this
 
                 this.$auth.login({
@@ -54,16 +54,10 @@
                         password: app.password
                     },
                     success: function () {
-                        // handle redirection
-                        app.success = true
-                        const redirectTo = redirect ? redirect.from.name : this.$auth.user().role === -1 ? 'admin.dashboard' : 'dashboard'
-                        // const redirectTo = 'dashboard'
-                        this.$router.push({name: redirectTo})
+                        console.log(response)
                     },
-                    error: function () {
-                        app.has_error = true
-                        app.error = res.response.data.error
-                    },
+                    error: function () {},
+                    redirect: '/dashboard',
                     rememberMe: true,
                     fetchUser: true
                 })

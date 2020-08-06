@@ -11,7 +11,6 @@
 </template>
 <script>
     import Menu from './components/Menu.vue'
-    import LocaleSwitcher from './components/LocaleSwitcher.vue'
     export default {
         data() {
             return {
@@ -19,8 +18,7 @@
             }
         },
         components: {
-            Menu,
-            LocaleSwitcher
+            Menu
         }
     }
 </script>

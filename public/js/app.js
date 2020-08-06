@@ -3079,7 +3079,6 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Menu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Menu.vue */ "./resources/js/components/Menu.vue");
-/* harmony import */ var _components_LocaleSwitcher_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/LocaleSwitcher.vue */ "./resources/js/components/LocaleSwitcher.vue");
 //
 //
 //
@@ -3091,7 +3090,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3099,8 +3097,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    Menu: _components_Menu_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    LocaleSwitcher: _components_LocaleSwitcher_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Menu: _components_Menu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -3569,26 +3566,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     login: function login() {
-      var redirect = this.$auth.redirect();
+      var redirect = 'dashboard';
       var app = this;
       this.$auth.login({
         data: {
           email: app.email,
           password: app.password
         },
-        success: function success() {
-          // handle redirection
-          app.success = true;
-          var redirectTo = redirect ? redirect.from.name : this.$auth.user().role === -1 ? 'admin.dashboard' : 'dashboard'; // const redirectTo = 'dashboard'
-
-          this.$router.push({
-            name: redirectTo
-          });
-        },
-        error: function error() {
-          app.has_error = true;
-          app.error = res.response.data.error;
-        },
+        success: function success() {},
+        error: function error() {},
+        redirect: '/dashboard',
         rememberMe: true,
         fetchUser: true
       });
@@ -103502,6 +103489,11 @@ vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_4___default.a, axios__WEBPACK_IMPORTED_MODULE_1___default.a);
 axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.baseURL = "".concat("http://localhost:8000", "/api/v1");
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(_websanova_vue_auth__WEBPACK_IMPORTED_MODULE_3__["default"], _auth__WEBPACK_IMPORTED_MODULE_7__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_2___default.a.use(__webpack_require__(/*! @websanova/vue-auth */ "./node_modules/@websanova/vue-auth/dist/vue-auth.esm.js"), {
+  auth: __webpack_require__(/*! @websanova/vue-auth/drivers/auth/bearer.js */ "./node_modules/@websanova/vue-auth/drivers/auth/bearer.js"),
+  http: __webpack_require__(/*! @websanova/vue-auth/drivers/http/axios.1.x.js */ "./node_modules/@websanova/vue-auth/drivers/http/axios.1.x.js"),
+  router: __webpack_require__(/*! @websanova/vue-auth/drivers/router/vue-router.2.x.js */ "./node_modules/@websanova/vue-auth/drivers/router/vue-router.2.x.js")
+});
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('index', _Index__WEBPACK_IMPORTED_MODULE_6__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_2___default.a.component('pagination', __webpack_require__(/*! laravel-vue-pagination */ "./node_modules/laravel-vue-pagination/dist/laravel-vue-pagination.common.js"));
 var app = new vue__WEBPACK_IMPORTED_MODULE_2___default.a({

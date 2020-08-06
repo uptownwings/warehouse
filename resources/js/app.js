@@ -42,6 +42,17 @@ Vue.filter('toCurrency', function (value) {
     return formatter.format(value);
 });
 
+// Set Vue authentication
+Vue.use(VueAxios, axios)
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api/v1`
+Vue.use(VueAuth, auth)
+
+Vue.use(require('@websanova/vue-auth'), {
+    auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
+    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
+    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+ });
+
 
 // Set Vue globally
 window.Vue = Vue
@@ -49,11 +60,6 @@ window.Vue = Vue
 // Set Vue router
 Vue.router = router
 Vue.use(VueRouter)
-
-// Set Vue authentication
-Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api/v1`
-Vue.use(VueAuth, auth)
 
 Vue.component('index', Index)
 Vue.component('pagination', require('laravel-vue-pagination'));
