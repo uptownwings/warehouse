@@ -3,20 +3,20 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Warehouse Dashboard</div>
-                    <router-link :to="{name: 'warehouse.create'}" tag="button">Create new Item</router-link>
+                    <div class="card-header"><h2>{{ $t('dashboard.welcome') }}</h2></div>
+                    <router-link :to="{name: 'warehouse.create'}" tag="button">{{ $t('dashboard.createbutton') }}</router-link>
                     <div class="card-body">
                         <table>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>EAN</th>
-                                <th>type</th>
-                                <th>weight</th>
-                                <th>color</th>
-                                <th>quantity</th>
-                                <th>price</th>
-                                <th>action</th>
+                                <th>{{ $t('data.id') }}</th>
+                                <th>{{ $t('data.name') }}</th>
+                                <th>{{ $t('data.EAN') }}</th>
+                                <th>{{ $t('data.type') }}</th>
+                                <th>{{ $t('data.weight') }}</th>
+                                <th>{{ $t('data.color') }}</th>
+                                <th>{{ $t('data.quantity') }}</th>
+                                <th>{{ $t('data.price') }}</th>
+                                <th>{{ $t('dashboard.action') }}</th>
                             </tr>
                             <tr v-for="row in laravelData.data">
                                 <td>{{ row.id }}</td>
@@ -29,12 +29,12 @@
                                 <td class="text-right">{{ row.price | toCurrency }}</td>
                                 <td>
                                     <router-link :to="{name: 'warehouse.show', params: { id: row.id }}" tag="button">
-                                        View
+                                        {{ $t('dashboard.viewbutton') }}
                                     </router-link>
                                     <router-link :to="{name: 'warehouse.edit', params: { id: row.id }}" tag="button">
-                                        Edit
+                                        {{ $t('dashboard.editbutton') }}
                                     </router-link>
-                                    <button @click="deleteWarehouseItem(row.id)">Delete</button>
+                                    <button @click="deleteWarehouseItem(row.id)">{{ $t('dashboard.deletebutton') }}</button>
                                 </td>
                             </tr>
                         </table>
@@ -47,9 +47,7 @@
 </template>
 <script>
 export default {
-    mounted() {
-        console.log('Component mounted.')
-    },
+    name: 'dashboard',
     data() {
         return {
             laravelData: {}
@@ -75,10 +73,10 @@ export default {
         deleteWarehouseItem(id) {
             this.$confirm(
                 {
-                    message: 'This will delete this warehouse item and related data. Are you sure?',
+                    message: this.$t('dashboard.deletemsg'),
                     button: {
-                        no: 'No',
-                        yes: 'Yes'
+                        no: this.$t('dashboard.no'),
+                        yes: this.$t('dashboard.yes')
                     },
                     callback: confirm => {
                         if (confirm) {

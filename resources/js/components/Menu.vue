@@ -6,12 +6,12 @@
 
             <ul class="navbar-nav ml-auto" v-if="!$auth.check()">
                 <li class="nav-item" v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
-                    <router-link :to="{ name : route.path }" :key="key" class="nav-link">{{route.name}}</router-link>
+                    <router-link :to="{ name : route.path }" :key="key" class="nav-link">{{ $t('menu.'+route.name) }}</router-link>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto" v-if="$auth.check()">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click.prevent="$auth.logout()">Logout</a>
+                    <a class="nav-link" href="#" @click.prevent="$auth.logout()">{{ $t('menu.Logout') }}</a>
                 </li>
             </ul>
         </div>

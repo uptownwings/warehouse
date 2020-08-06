@@ -32,6 +32,7 @@
         "vue-chartkick": "^0.6.1",
         "vue-confirm-dialog": "^1.0.2",
         "vue-fontawesome": "0.0.2",
+        "vue-i18n": "^8.20.0",
         "vue-jwt-auth": "^0.12.4-moved",
         "vue-resource": "^1.5.1",
         "vue-router": "^3.3.4",

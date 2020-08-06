@@ -3,19 +3,19 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Warehouse Item: {{ itemData.name }}</div>
+                    <div class="card-header"><h2>{{ $t('show.title') }}: {{ itemData.name }}</h2></div>
 
                     <div class="card-body">
                         <table>
                             <tr>
-                                <th>id</th>
-                                <th>name</th>
-                                <th>EAN</th>
-                                <th>type</th>
-                                <th>weight</th>
-                                <th>color</th>
-                                <th>quantity</th>
-                                <th>price</th>
+                                <th>{{ $t('data.id') }}</th>
+                                <th>{{ $t('data.name') }}</th>
+                                <th>{{ $t('data.EAN') }}</th>
+                                <th>{{ $t('data.type') }}</th>
+                                <th>{{ $t('data.weight') }}</th>
+                                <th>{{ $t('data.color') }}</th>
+                                <th>{{ $t('data.quantity') }}</th>
+                                <th>{{ $t('data.price') }}</th>
                             </tr>
                             <tr>
                                 <td>{{ itemData.id }}</td>
@@ -29,11 +29,11 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="card-header">Price history</div>
+                    <div class="card-header"><h3>{{ $t('show.pricehistory') }}</h3></div>
                     <div class="card-body">
                         <line-chart :data="itemHistoryData" :curve="false"></line-chart>
                     </div>
-                    <div class="card-header">Quantity history</div>
+                    <div class="card-header"><h3>{{ $t('show.quantityhistory') }}</h3></div>
                     <div class="card-body">
                         <line-chart :data="itemQuantityData" :curve="false"></line-chart>
                     </div>
@@ -44,8 +44,6 @@
 </template>
 <script>
     export default {
-        mounted() {
-        },
         data() {
             return {
                 itemData: {},

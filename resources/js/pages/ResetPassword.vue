@@ -33,9 +33,6 @@
                 error: ''
             }
         },
-        mounted() {
-            //
-        },
         methods: {
             reset() {
                 let redirect = this.$auth.redirect()

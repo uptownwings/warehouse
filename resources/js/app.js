@@ -12,6 +12,16 @@ import router from './router'
 import Chartkick from 'vue-chartkick'
 import Chart from 'chart.js'
 import VueConfirmDialog from 'vue-confirm-dialog'
+import VueInternationalization from 'vue-i18n'
+import messages from './locale/message';
+
+// Internationalization
+Vue.use(VueInternationalization)
+const lang = localStorage.getItem('locale') || 'en';
+const i18n = new VueInternationalization({
+    locale: lang,
+    messages: messages
+})
 
 // Initialize confirmation dialog
 Vue.use(VueConfirmDialog)
@@ -49,5 +59,7 @@ Vue.component('index', Index)
 Vue.component('pagination', require('laravel-vue-pagination'));
 const app = new Vue({
     el: '#app',
-    router
+    i18n,
+    router,
+    messages
 })
