@@ -1,7 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
@@ -33,20 +36,26 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $credentials = $request->only('email', 'password');
-        if ($token = $this->guard()->attempt($credentials)) {
+        $user = User::query()->where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(
-                ['status' => 'success', 'token' => $token],
-                Response::HTTP_OK
-            )->header('Authorization', $token);
+                [
+                    'message' => ['These credentials do not match a record in our database.']
+                ],
+                Response::HTTP_NOT_FOUND
+            );
         }
 
-        return response()->json(['error' => 'login_error'], Response::HTTP_UNAUTHORIZED);
-    }
+        $token = $user->createToken('my-app-token')->plainTextToken;
 
-    private function guard()
-    {
-        return Auth::guard();
+        return response()->json(
+            [
+                'user' => $user,
+                'token' => $token
+            ],
+            Response::HTTP_OK
+        );
     }
 
     public function logout(): JsonResponse
@@ -67,17 +76,6 @@ class AuthController extends Controller
             'status' => 'success',
             'data' => $user
         ]);
-    }
-
-    public function refresh(): JsonResponse
-    {
-        if ($token = $this->guard()->refresh()) {
-            return response()
-                ->json(['status' => 'successs'], Response::HTTP_OK)
-                ->header('Authorization', $token);
-        }
-
-        return response()->json(['error' => 'refresh_token_error'], Response::HTTP_UNAUTHORIZED);
     }
 
     public function doReset(ResetRequest $request)

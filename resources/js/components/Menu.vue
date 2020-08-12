@@ -1,17 +1,17 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <router-link v-if="!$auth.check()" :to="{name: 'home'}" class="navbar-brand">Warehouse Coding Test</router-link>
-        <router-link v-if="$auth.check()" :to="{name: 'dashboard'}" class="navbar-brand">Warehouse Coding Test</router-link>
+        <router-link v-if="!$store.state.user" :to="{name: 'home'}" class="navbar-brand">Warehouse Coding Test</router-link>
+        <router-link v-if="$store.state.user" :to="{name: 'dashboard'}" class="navbar-brand">Warehouse Coding Test</router-link>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-            <ul class="navbar-nav ml-auto" v-if="!$auth.check()">
+            <ul class="navbar-nav ml-auto" v-if="!$store.state.user">
                 <li class="nav-item" v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
                     <router-link :to="{ name : route.path }" :key="key" class="nav-link">{{ $t('menu.'+route.name) }}</router-link>
                 </li>
             </ul>
-            <ul class="navbar-nav ml-auto" v-if="$auth.check()">
+            <ul class="navbar-nav ml-auto" v-if="$store.state.user">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" @click.prevent="$auth.logout()">{{ $t('menu.Logout') }}</a>
+                    <a class="nav-link" href="#" @click.prevent="logout">{{ $t('menu.Logout') }}</a>
                 </li>
             </ul>
             <LocaleSwitcher />
@@ -46,6 +46,11 @@
         },
         mounted() {
             //
+        },
+        methods: {
+            logout() {
+                this.$store.dispatch('logout');
+            }
         }
     }
 </script>
