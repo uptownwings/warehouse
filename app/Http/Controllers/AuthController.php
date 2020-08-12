@@ -27,16 +27,23 @@ class AuthController extends Controller
         ResetsPasswords::credentials insteadof SendsPasswordResetEmails;
     }
 
-    public function register(CreateUserRequest $request, UserRepositoryInterface $repository): JsonResponse
+    private $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
     {
-        $user = $repository->createUser($request);
+        $this->userRepository = $userRepository;
+    }
+
+    public function register(CreateUserRequest $request): JsonResponse
+    {
+        $user = $this->userRepository->createUser($request);
 
         return response()->json(['status' => 'success', 'user' => $user], Response::HTTP_OK);
     }
 
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = User::query()->where('email', $request->email)->first();
+        $user = $this->userRepository->getUserByEmail($request->email);
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(

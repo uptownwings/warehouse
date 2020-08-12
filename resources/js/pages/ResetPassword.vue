@@ -35,7 +35,6 @@
         },
         methods: {
             reset() {
-                let redirect = this.$auth.redirect()
                 let app = this
 
                 let data = {email: app.email}

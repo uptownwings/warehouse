@@ -2495,29 +2495,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     register: function register() {
+      var _this = this;
+
       var app = this;
-      this.$auth.register({
-        data: {
-          name: app.name,
-          email: app.email,
-          password: app.password,
-          password_confirmation: app.password_confirmation
-        },
-        success: function success() {
-          app.success = true;
-          this.$router.push({
-            name: 'login',
-            params: {
-              successRegistrationRedirect: true
-            }
-          });
-        },
-        error: function error(res) {
-          // console.log(res.response.data.errors)
-          app.has_error = true;
-          app.error = res.response.data.error;
-          app.errors = res.response.data.errors || {};
-        }
+      this.$store.dispatch('register', {
+        name: app.name,
+        email: app.email,
+        password: app.password,
+        password_confirmation: app.password_confirmation
+      }).then(function () {
+        app.success = true;
+
+        _this.$router.push({
+          name: 'login',
+          params: {
+            successRegistrationRedirect: true
+          }
+        });
+      })["catch"](function (err) {
+        app.has_error = true;
+        app.error = res.response.data.error;
+        app.errors = res.response.data.errors || {};
       });
     }
   }
@@ -2572,7 +2570,6 @@ __webpack_require__.r(__webpack_exports__);
     reset: function reset() {
       var _this = this;
 
-      var redirect = this.$auth.redirect();
       var app = this;
       var data = {
         email: app.email
@@ -104911,6 +104908,10 @@ axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = "http://app-back
     logout: function logout(_ref3) {
       var commit = _ref3.commit;
       commit("clearUserData");
+    },
+    register: function register(_ref4, credentials) {
+      var commit = _ref4.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post("auth/register", credentials);
     }
   },
   getters: {
