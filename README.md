@@ -18,7 +18,6 @@ Instructions for setting up this project:
 - run 'php artisan migrate'
 - run 'php artisan db:seed'
 - run 'php artisan key:generate'
-- run 'php artisan jwt:secret' and answer 'yes' to the question that may come up.
 - run 'php artisan serve' and then follow the link in the commandline.
 (please note that in the .env.example the port of the application is set to 8000. If artisan serve gives you a different port you need to change this in the .env file.)
 
