@@ -15,6 +15,10 @@ import VueConfirmDialog from 'vue-confirm-dialog'
 import VueInternationalization from 'vue-i18n'
 import messages from './locale/message';
 
+// Set Vue router
+Vue.router = router
+Vue.use(VueRouter)
+
 // Internationalization
 Vue.use(VueInternationalization)
 const lang = localStorage.getItem('locale') || 'en';
@@ -44,8 +48,8 @@ Vue.filter('toCurrency', function (value) {
 
 // Set Vue authentication
 Vue.use(VueAxios, axios)
-axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api/v1`
 Vue.use(VueAuth, auth)
+axios.defaults.baseURL = `${process.env.MIX_APP_URL}/api/v1`
 
 Vue.use(require('@websanova/vue-auth'), {
     auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
@@ -57,9 +61,7 @@ Vue.use(require('@websanova/vue-auth'), {
 // Set Vue globally
 window.Vue = Vue
 
-// Set Vue router
-Vue.router = router
-Vue.use(VueRouter)
+
 
 Vue.component('index', Index)
 Vue.component('pagination', require('laravel-vue-pagination'));
