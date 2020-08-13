@@ -7,7 +7,7 @@
             <h2>{{ $t('login.title') }}</h2>
           </div>
           <div class="card-body">
-            <div class="alert alert-danger" v-if="has_error && !success">
+            <div class="alert alert-danger" v-if="has_error">
               <p v-if="error == 'login_error'">Validation Errors.</p>
               <p v-else>Error, unable to connect with these credentials.</p>
             </div>
@@ -60,15 +60,16 @@ export default {
     };
   },
   methods: {
-    login () {
+    login() {
       this.$store
-        .dispatch('login', this.formData)
+        .dispatch("login", this.formData)
         .then(() => {
-          this.$router.push({ name: 'dashboard' })
+          this.$router.push({ name: "dashboard" });
         })
-        .catch(err => {
-          console.log(err)
-        })
+        .catch((err) => {
+          this.has_error = true;
+          console.log(err);
+        });
     },
   },
 };

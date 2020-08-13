@@ -2419,11 +2419,12 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var _this = this;
 
-      this.$store.dispatch('login', this.formData).then(function () {
+      this.$store.dispatch("login", this.formData).then(function () {
         _this.$router.push({
-          name: 'dashboard'
+          name: "dashboard"
         });
       })["catch"](function (err) {
+        _this.has_error = true;
         console.log(err);
       });
     }
@@ -86107,7 +86108,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm.has_error && !_vm.success
+            _vm.has_error
               ? _c("div", { staticClass: "alert alert-danger" }, [
                   _vm.error == "login_error"
                     ? _c("p", [_vm._v("Validation Errors.")])

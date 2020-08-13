@@ -11,7 +11,7 @@ interface UserRepositoryInterface
 
     public function createUser(CreateUserRequest $request): User;
 
-    public function getUserByEmail(string $email): User;
+    public function getUserByEmail(string $email): ?User;
 
     public function changePassword(int $userId, string $password): bool;
 }
