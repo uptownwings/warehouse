@@ -56,36 +56,22 @@
         },
         methods: {
             getItemData() {
-                axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(
+                axios.get('/warehouse/showWithHistory?itemId=' + this.$route.params.id).then(
                     (response) => {
                         this.itemData = response.data
-                    },
-                    (error) => {
-                        console.log(error);
-                    }
-                )
-                axios.get('/warehouse/pricehistory/item?itemId=' + this.$route.params.id).then(
-                    (response) => {
                         let i = 1
-                        response.data.forEach(obj => {
+                        response.data.price_history.forEach(obj => {
                             this.itemHistoryData.push([obj.created_at, parseFloat(obj.price)]);
                             i++
                         })
-                    },
-                    (error) => {
-                        console.log(error)
-                    }
-                )
-                axios.get('/warehouse/quantityhistory/item?itemId=' + this.$route.params.id).then(
-                    (response) => {
-                        let i = 1
-                        response.data.forEach(obj => {
+                        i = 1
+                        response.data.quantity_history.forEach(obj => {
                             this.itemQuantityData.push([obj.created_at, parseFloat(obj.quantity)]);
                             i++
                         })
                     },
                     (error) => {
-                        console.log(error)
+                        console.log(error);
                     }
                 )
             }

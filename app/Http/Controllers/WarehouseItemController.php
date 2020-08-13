@@ -32,6 +32,13 @@ class WarehouseItemController extends Controller
         return response()->json($data, (null !== $data) ? Response::HTTP_OK : Response::HTTP_NOT_FOUND);
     }
 
+    public function showWithHistory(Request $request): JsonResponse
+    {
+        $data = $this->itemRepository->getWarehouseItemWithHistory((int)$request->itemId);
+
+        return response()->json($data, (null !== $data) ? Response::HTTP_OK : Response:: HTTP_NOT_FOUND);
+    }
+
     public function update(UpdateItemRequest $request): JsonResponse
     {
         $data = $this->itemRepository->updateWarehouseItem($request);

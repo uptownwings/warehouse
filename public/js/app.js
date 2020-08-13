@@ -2654,24 +2654,16 @@ __webpack_require__.r(__webpack_exports__);
     getItemData: function getItemData() {
       var _this = this;
 
-      axios.get('/warehouse/show?itemId=' + this.$route.params.id).then(function (response) {
+      axios.get('/warehouse/showWithHistory?itemId=' + this.$route.params.id).then(function (response) {
         _this.itemData = response.data;
-      }, function (error) {
-        console.log(error);
-      });
-      axios.get('/warehouse/pricehistory/item?itemId=' + this.$route.params.id).then(function (response) {
         var i = 1;
-        response.data.forEach(function (obj) {
+        response.data.price_history.forEach(function (obj) {
           _this.itemHistoryData.push([obj.created_at, parseFloat(obj.price)]);
 
           i++;
         });
-      }, function (error) {
-        console.log(error);
-      });
-      axios.get('/warehouse/quantityhistory/item?itemId=' + this.$route.params.id).then(function (response) {
-        var i = 1;
-        response.data.forEach(function (obj) {
+        i = 1;
+        response.data.quantity_history.forEach(function (obj) {
           _this.itemQuantityData.push([obj.created_at, parseFloat(obj.quantity)]);
 
           i++;

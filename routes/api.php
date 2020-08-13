@@ -33,6 +33,7 @@ Route::prefix('v1')->group(function () {
     Route::prefix('warehouse')->middleware('auth:sanctum')->group(function () {
         Route::get('index', 'WarehouseItemController@index')->name('warehouse.index');
         Route::get('show', 'WarehouseItemController@show')->name('warehouse.show');
+        Route::get('showWithHistory', 'WarehouseItemController@showWithHistory')->name('warehouse.showWithHistory');
         Route::post('update', 'WarehouseItemController@update')->name('warehouse.update');
         Route::delete('delete', 'WarehouseItemController@destroy')->name('warehouse.delete');
         Route::post('create', 'WarehouseItemController@create')->name('warehouse.create');
