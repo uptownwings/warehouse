@@ -34,7 +34,7 @@ class WarehouseItemRepository extends BaseRepository implements WarehouseItemRep
 
     public function getWarehouseItemWithHistory(int $itemId): WarehouseItem
     {
-        return $this->model::query()->find($itemId)->with('quantityHistory')->with('priceHistory')->first();
+        return $this->model::where('id', $itemId)->with('quantityHistory')->with('priceHistory')->first();
     }
 
     public function updateWarehouseItem(UpdateItemRequest $request): WarehouseItem
